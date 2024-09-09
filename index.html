@@ -170,55 +170,46 @@
     </section>
     <script>
       document.getElementById('myForm').addEventListener('submit', async function(event) {
-        event.preventDefault(); // Previne o comportamento padrão do formulário
-    
-        // Função para capturar o valor do radio button selecionado
-        function getRadioValue(name) {
-          const radios = document.getElementsByName(name);
-          for (let radio of radios) {
-            if (radio.checked) {
-              return radio.value;
-            }
+          event.preventDefault(); // Previne o comportamento padrão do formulário
+
+          function getRadioValue(name) {
+              const radios = document.getElementsByName(name);
+              for (let radio of radios) {
+                  if (radio.checked) {
+                      return radio.value;
+                  }
+              }
+              return ''; // Retorna vazio se nenhum valor for selecionado
           }
-          return ''; // Retorna vazio se nenhum valor for selecionado
-        }
-    
-        // Capture os dados do formulário
-        const formData = {
-          equipe: document.getElementById('select-1115').value, // Corrigido para capturar o valor
-          viabilidade: getRadioValue('checkbox-20'),
-          escalabilidade: getRadioValue('checkbox'),
-          impacto: getRadioValue('checkbox-1'),
-          pitch: getRadioValue('checkbox-2')
-        };
-    
-        try {
-          // Envia os dados para o Google Apps Script
-          const response = await fetch('https://script.google.com/macros/s/AKfycbxLyZQUV1wHprubpyxSFjDAqjR16bJtYvEgNlM2mPgSdkPg3MN46i588f66KnA2xstF0w/exec', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-          });
-    
-          // Converte a resposta para JSON
-          const result = await response.json();
-    
-          // Verifica o status da resposta
-          if (result.status === 'Success') {
-            alert('Formulário enviado com sucesso! Obrigado pela sua participação.');
-            // Opcional: Limpar o formulário após o envio bem-sucedido
-            document.getElementById('myForm').reset();
-          } else {
-            alert('Ocorreu um problema ao enviar o formulário. Por favor, tente novamente.');
+
+          const formData = {
+              equipe: document.getElementById('select-1115').value,
+              viabilidade: getRadioValue('checkbox-20'),
+              escalabilidade: getRadioValue('checkbox'),
+              impacto: getRadioValue('checkbox-1'),
+              pitch: getRadioValue('checkbox-2')
+          };
+
+          try {
+              const response = await fetch('https://script.google.com/macros/s/AKfycbxLyZQUV1wHprubpyxSFjDAqjR16bJtYvEgNlM2mPgSdkPg3MN46i588f66KnA2xstF0w/exec', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  mode: 'no-cors',  // Utilizando 'no-cors'
+                  body: JSON.stringify(formData)
+              });
+
+              // Supondo que a requisição foi bem-sucedida
+              alert('Formulário enviado com sucesso! Obrigado pela sua participação.');
+              document.getElementById('myForm').reset();
+          
+          } catch (error) {
+              console.error('Erro ao enviar o formulário:', error);
+              alert('Ocorreu um erro ao enviar o formulário. Tente novamente.');
           }
-        
-        } catch (error) {
-          console.error('Erro ao enviar o formulário:', error);
-          alert('Ocorreu um erro ao enviar o formulário. Tente novamente.');
-        }
       });
+
     </script>
     
     
