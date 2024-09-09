@@ -46,9 +46,9 @@
                         <label for="select-1115" class="u-custom-font u-font-lato u-label u-label-1">Equipes</label>
                         <div class="u-form-select-wrapper">
                           <select id="select-1115" name="select-1115" class="u-border-none u-input u-input-rectangle u-radius u-input-1">
-                            <option value="Equipe 1" data-calc="">Equipe 1</option>
-                            <option value="Equipe 2" data-calc="">Equipe 2</option>
-                            <option value="Equipe 3" data-calc="">Equipe 3</option>
+                            <option value="Equipe 1" data-calc="1">Equipe 1</option>
+                            <option value="Equipe 2" data-calc="2">Equipe 2</option>
+                            <option value="Equipe 3" data-calc="3">Equipe 3</option>
                           </select>
                           <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
                         </div>
@@ -187,7 +187,7 @@
     
         // Capture os dados do formulário
         const formData = {
-          equipe: document.getElementById('select-1115'),
+          equipe: document.getElementById('select-1115').value, // Corrigido para capturar o valor
           viabilidade: getRadioValue('checkbox-20'),
           escalabilidade: getRadioValue('checkbox'),
           impacto: getRadioValue('checkbox-1'),
@@ -206,7 +206,7 @@
     
           // Converte a resposta para JSON
           const result = await response.json();
-          
+    
           // Verifica o status da resposta
           if (result.status === 'Success') {
             alert('Formulário enviado com sucesso! Obrigado pela sua participação.');
