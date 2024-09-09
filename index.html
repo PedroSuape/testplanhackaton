@@ -79,7 +79,7 @@
                         </div>
                       </div>
                       <div class="u-form-group u-form-input-layout-horizontal u-form-radiobutton u-form-group-3">
-                        <label class="u-custom-font u-font-lato u-label u-label-3">Escabilidade</label>
+                        <label class="u-custom-font u-font-lato u-label u-label-3">Escalabilidade</label>
                         <div class="u-form-radio-button-wrapper">
                           <div class="u-input-row">
                             <input id="field-a597" type="radio" name="checkbox" value="1" class="u-field-input" data-calc="1">
@@ -172,28 +172,46 @@
     </section>
     <script>
       document.getElementById('myForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
+        event.preventDefault(); // Previne o comportamento padrão do formulário
     
+        // Capture os dados do formulário
         const formData = {
           equipe: document.getElementById('select-1115').value,
           viabilidade: document.getElementById('checkbox-20').value,
-          escabilidade: document.getElementById('checkbox').value,
+          escalabilidade: document.getElementById('checkbox').value,  // Corrigido para 'escalabilidade'
           impacto: document.getElementById('checkbox-1').value,
           pitch: document.getElementById('checkbox-2').value,
-          // Continue adicionando campos conforme necessário
         };
     
-        const response = await fetch('https://script.google.com/macros/s/AKfycbxLyZQUV1wHprubpyxSFjDAqjR16bJtYvEgNlM2mPgSdkPg3MN46i588f66KnA2xstF0w/exec', {  // Substitua pela URL do seu aplicativo web
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData)
-        });
+        try {
+          // Envia os dados para o Google Apps Script
+          const response = await fetch('https://script.google.com/macros/s/AKfycbxLyZQUV1wHprubpyxSFjDAqjR16bJtYvEgNlM2mPgSdkPg3MN46i588f66KnA2xstF0w/exec', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
     
-        const result = await response.json();
-        alert(result.status);
+          // Converte a resposta para JSON
+          const result = await response.json();
+          
+          // Verifica o status da resposta
+          if (result.status === 'Success') {
+            alert('Formulário enviado com sucesso!');
+            // Opcional: Limpar o formulário após o envio bem-sucedido
+            document.getElementById('myForm').reset();
+          } else {
+            alert('Ocorreu um problema ao enviar o formulário. Por favor, tente novamente.');
+          }
+        
+        } catch (error) {
+          console.error('Erro ao enviar o formulário:', error);
+          alert('Ocorreu um erro ao enviar o formulário. Tente novamente.');
+        }
       });
     </script>
+    
+    
     
 </body></html>
