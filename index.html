@@ -195,13 +195,12 @@
         try {
           // Envia os dados para o Google Apps Script
           const response = await fetch('https://script.google.com/macros/s/AKfycbxLyZQUV1wHprubpyxSFjDAqjR16bJtYvEgNlM2mPgSdkPg3MN46i588f66KnA2xstF0w/exec', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              mode: 'no-cors',  // Adicione esta linha
-              body: JSON.stringify(formData)
-            });
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
     
           // Converte a resposta para JSON
           const result = await response.json();
