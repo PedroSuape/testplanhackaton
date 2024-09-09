@@ -45,8 +45,8 @@
                       <div class="u-form-group u-form-select u-form-group-1">
                         <label for="select-1115" class="u-custom-font u-font-lato u-label u-label-1">Equipes</label>
                         <div class="u-form-select-wrapper">
-                          <select id="select-1115" name="select" class="u-border-none u-input u-input-rectangle u-radius u-input-1">
-                            <option value="Equipe1" data-calc="">Equipe 1</option>
+                          <select id="select-1115" name="select-1115" class="u-border-none u-input u-input-rectangle u-radius u-input-1">
+                            <option value="Equipe 1" data-calc="">Equipe 1</option>
                             <option value="Equipe 2" data-calc="">Equipe 2</option>
                             <option value="Equipe 3" data-calc="">Equipe 3</option>
                           </select>
@@ -174,13 +174,24 @@
       document.getElementById('myForm').addEventListener('submit', async function(event) {
         event.preventDefault(); // Previne o comportamento padrão do formulário
     
+        // Função para capturar o valor do radio button selecionado
+        function getRadioValue(name) {
+          const radios = document.getElementsByName(name);
+          for (let radio of radios) {
+            if (radio.checked) {
+              return radio.value;
+            }
+          }
+          return ''; // Retorna vazio se nenhum valor for selecionado
+        }
+    
         // Capture os dados do formulário
         const formData = {
-          equipe: document.getElementById('select-1115').value,
-          viabilidade: document.getElementById('checkbox-20').value,
-          escalabilidade: document.getElementById('checkbox').value,  // Corrigido para 'escalabilidade'
-          impacto: document.getElementById('checkbox-1').value,
-          pitch: document.getElementById('checkbox-2').value,
+          equipe: document.getElementById('select-1115'),
+          viabilidade: getRadioValue('checkbox-20'),
+          escalabilidade: getRadioValue('checkbox'),
+          impacto: getRadioValue('checkbox-1'),
+          pitch: getRadioValue('checkbox-2')
         };
     
         try {
@@ -198,7 +209,7 @@
           
           // Verifica o status da resposta
           if (result.status === 'Success') {
-            alert('Formulário enviado com sucesso!');
+            alert('Formulário enviado com sucesso! Obrigado pela sua participação.');
             // Opcional: Limpar o formulário após o envio bem-sucedido
             document.getElementById('myForm').reset();
           } else {
@@ -211,6 +222,8 @@
         }
       });
     </script>
+    
+    
     
     
     
